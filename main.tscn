@@ -1,13 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://bxknfppjcubrs"]
+[gd_scene load_steps=3 format=3 uid="uid://cfnsaunl451vj"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_mma5f"]
-[ext_resource type="Script" path="res://Network.gd" id="2_inyih"]
+[ext_resource type="Script" path="res://network.gd" id="2_45ote"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_mma5f")
 
 [node name="Network" type="Node" parent="."]
-script = ExtResource("2_inyih")
+script = ExtResource("2_45ote")
 
 [node name="Menu" type="CanvasLayer" parent="."]
 
