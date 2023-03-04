@@ -1,0 +1,86 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxknfppjcubrs"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_mma5f"]
+[ext_resource type="Script" path="res://Network.gd" id="2_inyih"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_mma5f")
+
+[node name="Network" type="Node" parent="."]
+script = ExtResource("2_inyih")
+
+[node name="Menu" type="CanvasLayer" parent="."]
+
+[node name="GridContainer" type="VBoxContainer" parent="Menu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 39.0
+offset_top = 16.0
+offset_right = -39.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="IpLineEdit" type="LineEdit" parent="Menu/GridContainer"]
+custom_minimum_size = Vector2(365, 0)
+layout_mode = 2
+text = "localhost"
+placeholder_text = "IP ADDRESS"
+alignment = 1
+caret_blink = true
+caret_blink_interval = 0.5
+
+[node name="PortLineEdit" type="LineEdit" parent="Menu/GridContainer"]
+custom_minimum_size = Vector2(365, 0)
+layout_mode = 2
+text = "5000"
+placeholder_text = "PORT #"
+alignment = 1
+caret_blink = true
+caret_blink_interval = 0.5
+
+[node name="HostButton" type="Button" parent="Menu/GridContainer"]
+layout_mode = 2
+text = "HOST"
+
+[node name="JoinButton" type="Button" parent="Menu/GridContainer"]
+layout_mode = 2
+text = "JOIN"
+
+[node name="Log" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Log"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Console" type="TextEdit" parent="Log/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+editable = false
+context_menu_enabled = false
+selecting_enabled = false
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Log/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Log/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://user_label.tscn")
+spawn_path = NodePath("../Log/HBoxContainer/ScrollContainer/VBoxContainer")
+
+[connection signal="connected_to_server" from="Network" to="." method="_on_network_connected_to_server"]
+[connection signal="connection_failed" from="Network" to="." method="_on_network_connection_failed"]
+[connection signal="peer_connected" from="Network" to="." method="_on_network_peer_connected"]
+[connection signal="peer_disconnected" from="Network" to="." method="_on_network_peer_disconnected"]
+[connection signal="server_disconnected" from="Network" to="." method="_on_network_server_disconnected"]
+[connection signal="pressed" from="Menu/GridContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="Menu/GridContainer/JoinButton" to="." method="_on_join_button_pressed"]
